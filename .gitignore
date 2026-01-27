@@ -1,0 +1,4 @@
+# Project exclude paths
+/diagnostics/target/
+/identifiers-integration-tests/target/
+/keygen/target/

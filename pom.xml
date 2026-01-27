@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.gbif</groupId>
+    <artifactId>motherpom</artifactId>
+    <version>59</version>
+  </parent>
+
+  <groupId>org.gbif.identifiers</groupId>
+  <artifactId>identifiers-motherpom</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <url>https://github.com/gbif/identifiers</url>
+
+  <scm>
+    <connection>scm:git:git@github.com:gbif/identifiers.git</connection>
+    <url>https://github.com/gbif/identifiers</url>
+    <developerConnection>scm:git:git@github.com:gbif/identifiers.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <!-- Common variables -->
+    <jdkLevel>17</jdkLevel>
+    <maven.compiler.source>${jdkLevel}</maven.compiler.source>
+    <maven.compiler.target>${jdkLevel}</maven.compiler.target>
+
+    <encoding>UTF-8</encoding>
+    <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+    <project.resources.sourceEncoding>${encoding}</project.resources.sourceEncoding>
+
+    <!-- Core utilities -->
+    <lombok.version>1.18.42</lombok.version>
+    <guava.version>33.5.0-jre</guava.version>
+    <slf4j.version>2.0.17</slf4j.version>
+    <logback.version>1.5.21</logback.version>
+    <junit.version>4.13.2</junit.version>
+
+    <!-- Jakarta / Javax -->
+    <jakarta.validation.version>3.1.1</jakarta.validation.version>
+    <jakarta.annotation.version>3.0.0</jakarta.annotation.version>
+    <javax.validation.version>2.0.1.Final</javax.validation.version>
+
+    <!-- Hadoop / HBase / ZooKeeper -->
+    <hadoop.version>3.3.5</hadoop.version>
+    <hbase.version>2.6.0-hadoop3</hbase.version>
+    <zookeeper.version>3.8.3</zookeeper.version>
+    <curator.version>5.6.0</curator.version>
+
+    <!-- GBIF -->
+    <dwca-io.version>3.0.1</dwca-io.version>
+    <dwc-api.version>2.1.8</dwc-api.version>
+    <gbif-api.version>2.2.3</gbif-api.version>
+    <hbase-utils.version>1.0.0</hbase-utils.version>
+
+    <jcommander.version>1.82</jcommander.version>
+  </properties>
+
+  <distributionManagement>
+    <site>
+      <id>gh-pages</id>
+      <url>https://gbif.github.io/identifiers/</url>
+    </site>
+    <repository>
+      <id>gbif-release</id>
+      <url>https://repository.gbif.org/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>gbif-deploy</id>
+      <url>https://repository.gbif.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>gbif-central</id>
+      <url>https://repository.gbif.org/repository/central/</url>
+    </repository>
+    <repository>
+      <id>gbif-release</id>
+      <url>https://repository.gbif.org/repository/releases/</url>
+    </repository>
+    <repository>
+      <id>gbif-snapshot</id>
+      <url>https://repository.gbif.org/repository/snapshots/</url>
+    </repository>
+    <repository>
+      <id>gbif-thirdparty</id>
+      <url>https://repository.gbif.org/repository/thirdparty/</url>
+    </repository>
+    <repository>
+      <id>osgeo</id>
+      <name>Open Source Geospatial Foundation Repository</name>
+      <url>https://repo.osgeo.org/repository/release/</url>
+    </repository>
+    <repository>
+      <id>ala-release</id>
+      <url>https://repository.gbif.org/repository/ala-release/</url>
+    </repository>
+    <repository>
+      <id>typesafe-release</id>
+      <url>https://repository.gbif.org/repository/typesafe/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>gbif-central</id>
+      <url>https://repository.gbif.org/repository/central/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>gbif-release</id>
+      <url>https://repository.gbif.org/repository/releases/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>gbif-snapshot</id>
+      <url>https://repository.gbif.org/repository/snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <name>GBIF :: Identifiers</name>
+
+  <modules>
+    <module>keygen</module>
+    <module>diagnostics</module>
+    <module>identifiers-integration-tests</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- Lombok -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+
+      <!-- GBIF APIs -->
+      <dependency>
+        <groupId>org.gbif</groupId>
+        <artifactId>dwca-io</artifactId>
+        <version>${dwca-io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.gbif</groupId>
+        <artifactId>dwc-api</artifactId>
+        <version>${dwc-api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.gbif</groupId>
+        <artifactId>gbif-api</artifactId>
+        <version>${gbif-api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.gbif</groupId>
+        <artifactId>hbase-utils</artifactId>
+        <version>${hbase-utils.version}</version>
+      </dependency>
+
+      <!-- Guava -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <!-- Logging -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <!-- Validation -->
+      <dependency>
+        <groupId>jakarta.validation</groupId>
+        <artifactId>jakarta.validation-api</artifactId>
+        <version>${jakarta.validation.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>${jakarta.annotation.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${javax.validation.version}</version>
+      </dependency>
+
+      <!-- Hadoop -->
+      <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-common</artifactId>
+        <version>${hadoop.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-hdfs</artifactId>
+        <version>${hadoop.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-minicluster</artifactId>
+        <version>${hadoop.version}</version>
+      </dependency>
+
+      <!-- HBase -->
+      <dependency>
+        <groupId>org.apache.hbase</groupId>
+        <artifactId>hbase-client</artifactId>
+        <version>${hbase.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.hbase</groupId>
+        <artifactId>hbase-common</artifactId>
+        <version>${hbase.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.hbase</groupId>
+        <artifactId>hbase-testing-util</artifactId>
+        <version>${hbase.version}</version>
+      </dependency>
+
+      <!-- ZooKeeper / Curator -->
+      <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>${zookeeper.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-framework</artifactId>
+        <version>${curator.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-test</artifactId>
+        <version>${curator.version}</version>
+      </dependency>
+
+      <!-- Test -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+
+</project>
